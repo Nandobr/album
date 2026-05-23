@@ -51,6 +51,14 @@ export const TEAMS = [
   { code: 'PAN', name: 'Panama', count: 20 }
 ];
 
+export const GROUPS = [
+  { name: 'Especiais', codes: ['FWC', 'CC'] },
+  ...Array.from({ length: 12 }).map((_, i) => ({
+    name: `Grupo ${String.fromCharCode(65 + i)}`,
+    codes: TEAMS.slice(2 + i * 4, 2 + i * 4 + 4).map(t => t.code)
+  }))
+];
+
 export const TEAM_CODES = TEAMS.map(t => t.code);
 
 export const isValidSticker = (teamCode: string, number: number) => {

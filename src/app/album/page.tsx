@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useAlbumStore } from '@/lib/useAlbumStore';
 import { useLanguageStore } from '@/lib/useLanguageStore';
 import { useMounted } from '@/lib/useMounted';
-import { TEAMS } from '@/lib/albumData';
+import { TEAMS, GROUPS } from '@/lib/albumData';
 import { StickerBadge } from '@/components/StickerBadge';
 import { X, Minus, Plus } from 'lucide-react';
 
@@ -12,8 +12,12 @@ export default function AlbumGrid() {
   const { stickers, isInitialized, updateStickers } = useAlbumStore();
   const { t } = useLanguageStore();
   const isLoaded = useMounted();
-  const [selectedTeam, setSelectedTeam] = useState<string>(TEAMS[0].code);
+  const [selectedGroup, setSelectedGroup] = useState<string>('Especiais');
+  const [selectedTeam, setSelectedTeam] = useState<string>('FWC');
   const [selectedStickerCode, setSelectedStickerCode] = useState<string | null>(null);
+
+  const currentGroup = GROUPS.find(g => g.name === selectedGroup);
+  const visibleTeams = TEAMS.filter(t => currentGroup?.codes.includes(t.code));
 
   const handleUpdateQuantity = (code: string, change: number) => {
     updateStickers([{ code, quantityToAdd: change }]);
@@ -27,9 +31,33 @@ export default function AlbumGrid() {
         <h2 className="text-2xl font-bold text-gray-800">{t('albumTitle')}</h2>
       </div>
 
-      {/* Team Selector */}
+      {/* Group Selector */}
       <div className="overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide flex space-x-2">
-        {TEAMS.map((team) => {
+        {GROUPS.map((g) => {
+          const isSelected = selectedGroup === g.name;
+          return (
+            <button
+              key={g.name}
+              onClick={() => {
+                setSelectedGroup(g.name);
+                setSelectedTeam(g.codes[0]);
+              }}
+              className={`whitespace-nowrap px-2.5 py-1.5 rounded-lg font-bold text-[11px] uppercase tracking-wider transition-colors border
+                ${isSelected 
+                  ? 'bg-gray-800 text-white border-gray-800' 
+                  : 'bg-white text-gray-500 border-gray-200 hover:bg-gray-100'
+                }
+              `}
+            >
+              {g.name}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Team Selector */}
+      <div className="overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide flex space-x-2 mt-2">
+        {visibleTeams.map((team) => {
           const isSelected = selectedTeam === team.code;
           return (
             <button

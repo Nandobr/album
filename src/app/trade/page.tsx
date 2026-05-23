@@ -76,7 +76,7 @@ export default function TradeAlbum() {
       {!tradeResults ? (
         <div className="flex-1 flex flex-col space-y-4">
           <textarea
-            className="w-full flex-1 p-4 rounded-xl border-2 border-gray-200 focus:border-wc-blue focus:ring-0 outline-none resize-none text-lg text-gray-900 font-mono placeholder-gray-400"
+            className="w-full flex-1 min-h-[300px] p-4 rounded-xl border-2 border-gray-200 focus:border-wc-blue focus:ring-0 outline-none resize-none text-lg text-gray-900 font-mono placeholder-gray-400"
             placeholder={t('tradePlaceholder')}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
