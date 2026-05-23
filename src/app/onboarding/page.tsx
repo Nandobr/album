@@ -45,7 +45,7 @@ export default function Onboarding() {
 
   if (mode === 'have' || mode === 'missing') {
     return (
-      <div className="flex flex-col min-h-full space-y-6 max-w-sm mx-auto">
+      <div className="flex flex-col h-full space-y-6 max-w-sm mx-auto">
         <div className="text-center space-y-2 mt-4">
           <h2 className="text-2xl font-bold text-wc-blue">
             {mode === 'have' ? t('onbHave') : t('onbMissing')}
@@ -81,7 +81,7 @@ export default function Onboarding() {
   }
 
   return (
-    <div className="flex flex-col min-h-full items-center justify-center space-y-8 max-w-sm mx-auto">
+    <div className="flex flex-col h-full items-center justify-center space-y-8 max-w-sm mx-auto overflow-y-auto">
       <div className="text-center space-y-2">
         <h2 className="text-2xl font-bold text-wc-blue">{t('onboardingTitle')}</h2>
         <p className="text-gray-600">{t('onboardingSubtitle')}</p>

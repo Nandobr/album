@@ -26,7 +26,7 @@ export default function AlbumGrid() {
   if (!isLoaded || !isInitialized) return null;
 
   return (
-    <div className="space-y-6 min-h-full flex flex-col">
+    <div className="space-y-4 h-full flex flex-col">
       <div className="text-center space-y-1">
         <h2 className="text-2xl font-bold text-gray-800">{t('albumTitle')}</h2>
       </div>

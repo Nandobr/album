@@ -57,7 +57,7 @@ export default function Settings() {
   };
 
   return (
-    <div className="space-y-8 min-h-full flex flex-col">
+    <div className="space-y-6 h-full flex flex-col overflow-y-auto scrollbar-hide pb-4">
       <div className="text-center space-y-1">
         <h2 className="text-2xl font-bold text-gray-800">{t('settingsTitle')}</h2>
       </div>

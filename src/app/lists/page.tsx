@@ -54,14 +54,14 @@ export default function Lists() {
   };
 
   return (
-    <div className="space-y-6 min-h-full flex flex-col">
-      <div className="text-center space-y-1">
-        <h2 className="text-2xl font-bold text-gray-800">{t('listsTitle')}</h2>
+    <div className="flex-1 flex flex-col min-h-0 space-y-3">
+      <div className="text-center shrink-0">
+        <h2 className="text-xl font-bold text-gray-800">{t('listsTitle')}</h2>
       </div>
 
-      <div className="flex p-1 bg-gray-100 rounded-xl">
+      <div className="flex p-1 bg-gray-100 rounded-lg shrink-0">
         <button
-          className={`flex-1 py-2 font-bold text-sm rounded-lg transition-all ${
+          className={`flex-1 py-1.5 font-bold text-sm rounded-md transition-all ${
             activeTab === 'missing' ? 'bg-white text-wc-red shadow' : 'text-gray-500'
           }`}
           onClick={() => setActiveTab('missing')}
@@ -78,25 +78,25 @@ export default function Lists() {
         </button>
       </div>
 
-      <div className="flex-1 bg-white border border-gray-200 rounded-2xl overflow-y-auto p-4 shadow-sm relative">
-        <pre className="whitespace-pre-wrap font-mono text-sm text-gray-700">
+      <div className="flex-1 min-h-0 bg-white border border-gray-200 rounded-xl overflow-y-auto p-3 shadow-sm relative">
+        <pre className="whitespace-pre-wrap font-mono text-xs text-gray-700">
           {generateText()}
         </pre>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-2 shrink-0">
         <button 
           onClick={handleCopy}
-          className="flex items-center justify-center p-3 rounded-xl border border-gray-300 text-gray-700 font-bold hover:bg-gray-50 transition"
+          className="flex items-center justify-center py-2 rounded-xl border border-gray-300 text-gray-700 font-bold hover:bg-gray-50 transition text-sm"
         >
-          <Copy size={18} className="mr-2" />
+          <Copy size={16} className="mr-2" />
           {t('listsCopyBtn')}
         </button>
         <button 
           onClick={handleShareWhatsApp}
-          className="flex items-center justify-center p-3 rounded-xl bg-[#25D366] text-white font-bold hover:bg-[#20b858] transition"
+          className="flex items-center justify-center py-2 rounded-xl bg-[#25D366] text-white font-bold hover:bg-[#20b858] transition text-sm"
         >
-          <Share2 size={18} className="mr-2" />
+          <Share2 size={16} className="mr-2" />
           WhatsApp
         </button>
       </div>

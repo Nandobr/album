@@ -67,7 +67,7 @@ export default function TradeAlbum() {
   };
 
   return (
-    <div className="space-y-6 min-h-full flex flex-col">
+    <div className="space-y-4 h-full flex flex-col">
       <div className="text-center space-y-1">
         <h2 className="text-2xl font-bold text-gray-800">{t('tradeTitle')}</h2>
         <p className="text-sm text-gray-500">{t('tradeSubtitle')}</p>
@@ -76,14 +76,14 @@ export default function TradeAlbum() {
       {!tradeResults ? (
         <div className="flex-1 flex flex-col space-y-4">
           <textarea
-            className="w-full flex-1 min-h-[300px] p-4 rounded-xl border-2 border-gray-200 focus:border-wc-blue focus:ring-0 outline-none resize-none text-lg text-gray-900 font-mono placeholder-gray-400"
+            className="w-full flex-1 p-3 rounded-xl border-2 border-gray-200 focus:border-wc-blue focus:ring-0 outline-none resize-none text-base text-gray-900 font-mono placeholder-gray-400"
             placeholder={t('tradePlaceholder')}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
           />
 
           <button 
-            className="w-full py-4 rounded-xl bg-wc-blue text-white font-bold hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center"
+            className="w-full py-3 rounded-xl bg-wc-blue text-white font-bold text-sm hover:bg-blue-700 transition-colors disabled:opacity-50 flex items-center justify-center mb-2"
             onClick={handleAnalyze}
             disabled={!inputText.trim()}
           >
@@ -123,16 +123,16 @@ export default function TradeAlbum() {
             )}
           </div>
 
-          <div className="mt-auto space-y-3 pt-4">
+          <div className="mt-auto space-y-2 pt-2 pb-2">
             <button 
-              className="w-full py-4 rounded-xl bg-wc-blue text-white font-bold hover:bg-blue-700 transition-colors disabled:opacity-50"
+              className="w-full py-3 rounded-xl bg-wc-blue text-white font-bold text-sm hover:bg-blue-700 transition-colors disabled:opacity-50"
               onClick={handleConfirm}
               disabled={tradeResults.need.length === 0}
             >
               {t('tradeComplete')}
             </button>
             <button 
-              className="w-full py-3 rounded-xl bg-gray-100 text-gray-600 font-semibold hover:bg-gray-200 transition-colors"
+              className="w-full py-2.5 rounded-xl bg-gray-100 text-gray-600 font-semibold text-sm hover:bg-gray-200 transition-colors"
               onClick={() => setTradeResults(null)}
             >
               Voltar

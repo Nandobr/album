@@ -91,7 +91,7 @@ export default function UpdateAlbum() {
   };
 
   return (
-    <div className="space-y-6 min-h-full flex flex-col">
+    <div className="space-y-4 h-full flex flex-col">
       <div className="text-center space-y-1">
         <h2 className="text-2xl font-bold text-gray-800">{t('updateTitle')}</h2>
         <p className="text-sm text-gray-500">{t('updateSubtitle')}</p>
@@ -100,7 +100,7 @@ export default function UpdateAlbum() {
       <div className="flex-1 flex flex-col space-y-4">
         <div className="relative flex-1 flex flex-col">
           <textarea
-            className="w-full flex-1 min-h-[300px] p-4 rounded-xl border-2 border-gray-200 focus:border-wc-blue focus:ring-0 outline-none resize-none text-lg text-gray-900 font-mono placeholder-gray-400 disabled:opacity-50 disabled:bg-gray-50"
+            className="w-full flex-1 p-3 rounded-xl border-2 border-gray-200 focus:border-wc-blue focus:ring-0 outline-none resize-none text-base text-gray-900 font-mono placeholder-gray-400 disabled:opacity-50 disabled:bg-gray-50"
             placeholder={t('updatePlaceholder')}
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
@@ -125,22 +125,22 @@ export default function UpdateAlbum() {
           onChange={handlePhotoUpload}
         />
 
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-3 pb-2">
           <button 
-            className="flex flex-col items-center justify-center p-4 rounded-xl border-2 border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50"
+            className="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-gray-200 text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50"
             onClick={() => fileInputRef.current?.click()}
             disabled={isOcrLoading}
           >
-            <Camera size={24} className="mb-2" />
-            <span className="text-sm font-semibold">{t('updatePhoto')}</span>
+            <Camera size={20} className="mb-1" />
+            <span className="text-xs font-semibold">{t('updatePhoto')}</span>
           </button>
           <button 
-            className="flex flex-col items-center justify-center p-4 rounded-xl border-2 border-wc-blue bg-wc-blue/5 text-wc-blue hover:bg-wc-blue/10 transition-colors disabled:opacity-50"
+            className="flex flex-col items-center justify-center p-3 rounded-xl border-2 border-wc-blue bg-wc-blue/5 text-wc-blue hover:bg-wc-blue/10 transition-colors disabled:opacity-50"
             onClick={handleAnalyze}
             disabled={!inputText.trim() || isOcrLoading}
           >
-            <FileText size={24} className="mb-2" />
-            <span className="text-sm font-semibold">{t('updateText')}</span>
+            <FileText size={20} className="mb-1" />
+            <span className="text-xs font-semibold">{t('updateText')}</span>
           </button>
         </div>
       </div>

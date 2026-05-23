@@ -28,12 +28,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900 fixed inset-0 overflow-hidden`}
       >
-        <div className="mx-auto max-w-md min-h-screen bg-white shadow-xl overflow-hidden flex flex-col relative">
+        <div className="mx-auto max-w-md w-full h-full bg-white shadow-xl flex flex-col relative">
           <Header />
-          <main className="flex-1 overflow-y-auto p-4 pb-20">
-            {children}
+          <main className="flex-1 overflow-hidden relative">
+            <div className="absolute inset-0 p-4 pb-[72px] flex flex-col overflow-hidden">
+              {children}
+            </div>
           </main>
           <BottomNav />
         </div>
