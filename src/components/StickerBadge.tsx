@@ -28,7 +28,7 @@ export function StickerBadge({ sticker, code, onClick }: StickerBadgeProps) {
 
       {isDuplicate && (
         <div className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center shadow-sm border border-white">
-          {sticker.quantity}
+          {sticker?.quantity}
         </div>
       )}
     </button>
