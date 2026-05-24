@@ -59,13 +59,13 @@ export default function AlbumGrid() {
       </div>
 
       {/* Search Bar */}
-      <div className="px-1 -mt-2">
-        <div className="relative">
-          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+      <div className="px-1 -mt-2 flex justify-center">
+        <div className="relative w-[40%]">
+          <Search className="absolute left-2 top-1/2 -translate-y-1/2 text-gray-400" size={14} />
           <input 
             type="text" 
             maxLength={3}
-            placeholder={lang === 'en' ? 'Search by code (e.g. BRA)...' : 'Buscar por sigla (ex: BRA)...'}
+            placeholder={lang === 'en' ? 'Code...' : 'Sigla...'}
             value={searchQuery}
             onChange={(e) => {
               const val = e.target.value.toUpperCase();
@@ -78,7 +78,7 @@ export default function AlbumGrid() {
                 }
               }
             }}
-            className="w-full bg-gray-100/80 border border-gray-200 rounded-lg pl-9 pr-8 py-1.5 text-sm uppercase text-black focus:ring-2 focus:ring-wc-blue focus:border-wc-blue outline-none transition-all placeholder-gray-400 placeholder:normal-case font-bold"
+            className="w-full bg-gray-100/80 border border-gray-200 rounded-md pl-7 pr-6 py-1 text-xs uppercase text-black focus:ring-2 focus:ring-wc-blue focus:border-wc-blue outline-none transition-all placeholder-gray-400 placeholder:normal-case font-bold text-center"
           />
           {searchQuery && (
             <button 
