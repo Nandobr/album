@@ -53,7 +53,7 @@ export default function AlbumGrid() {
   if (!isLoaded || !isInitialized) return null;
 
   return (
-    <div className="space-y-4 h-full flex flex-col">
+    <div className="space-y-2 h-full flex flex-col">
       <div className="text-center space-y-1">
         <h2 className="text-2xl font-bold text-gray-800">{t('albumTitle')}</h2>
       </div>
@@ -130,7 +130,7 @@ export default function AlbumGrid() {
       </div>
 
       {/* Team Selector */}
-      <div className="overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide flex space-x-2 mt-2">
+      <div className="overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide flex space-x-2">
         {visibleTeams.map((team) => {
           const isSelected = selectedTeam === team.code;
           
@@ -146,7 +146,7 @@ export default function AlbumGrid() {
             <button
               key={team.code}
               onClick={() => setSelectedTeam(team.code)}
-              className={`whitespace-nowrap px-4 py-1.5 rounded-xl font-bold text-sm transition-all border
+              className={`whitespace-nowrap px-3 py-1.5 rounded-lg font-bold text-xs transition-all border
                 ${isComplete 
                   ? (isSelected ? 'bg-yellow-400 text-yellow-900 border-yellow-500 shadow-sm' : 'bg-yellow-50 text-yellow-700 border-yellow-200 hover:bg-yellow-100')
                   : (isSelected 
@@ -163,7 +163,7 @@ export default function AlbumGrid() {
 
       {/* Grid */}
       <div className="flex-1 overflow-y-auto pb-4">
-        <div className="mb-4 space-y-2">
+        <div className="mb-2 space-y-2">
           <div className="flex items-end justify-between">
             <h3 className="font-bold text-lg text-gray-800">{currentTeamData?.name}</h3>
             <span className="text-sm font-bold text-gray-500">{teamOwned} / {teamTotal}</span>
@@ -175,7 +175,7 @@ export default function AlbumGrid() {
             />
           </div>
         </div>
-        <div className="grid grid-cols-4 sm:grid-cols-5 gap-3">
+        <div className="grid grid-cols-4 sm:grid-cols-5 gap-1.5">
           {Array.from({ length: TEAMS.find(t => t.code === selectedTeam)?.count || 0 }).map((_, i) => {
             const num = i + 1;
             const code = `${selectedTeam} ${num}`;
