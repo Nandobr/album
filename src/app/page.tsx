@@ -104,7 +104,6 @@ export default function Home() {
             <Layers size={20} className="mr-2" />
             <span className="font-semibold text-sm">{t('homeDuplicates')}</span>
           </div>
-          <div className="text-xs text-gray-500 font-medium mb-1">{t('homeReadyToTrade')}</div>
           <div className="text-3xl font-black text-gray-900">{stats.totalDuplicates}</div>
         </div>
       </div>
