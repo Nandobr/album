@@ -5,7 +5,7 @@ type Language = 'pt' | 'en';
 
 const TRANSLATIONS = {
   pt: {
-    appTitle: 'EasyAlbum',
+    appTitle: 'Álbum Fácil',
     navHome: 'Início',
     navAlbum: 'Álbum',
     navUpdate: 'Atualizar',
