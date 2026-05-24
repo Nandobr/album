@@ -99,7 +99,7 @@ export default function Home() {
           <div className="text-3xl font-black text-gray-900">{stats.totalMissing}</div>
         </div>
 
-        <div className="bg-wc-orange/10 rounded-2xl p-4 border border-wc-orange/20 col-span-2 flex flex-col items-center justify-center text-center">
+        <div className="bg-wc-orange/10 rounded-2xl p-3 border border-wc-orange/20 col-span-2 flex flex-col items-center justify-center text-center">
           <div className="flex items-center text-wc-orange mb-1">
             <Layers size={20} className="mr-2" />
             <span className="font-semibold text-sm">{t('homeDuplicates')}</span>
@@ -112,7 +112,7 @@ export default function Home() {
       <div className="pt-2 pb-4">
         <Link 
           href="/update" 
-          className="w-full flex items-center justify-center p-4 rounded-xl bg-wc-blue text-white font-bold text-lg shadow-lg hover:bg-wc-blue/90 transition-colors"
+          className="w-full flex items-center justify-center p-3 rounded-xl bg-wc-blue text-white font-bold text-base shadow-lg hover:bg-wc-blue/90 transition-colors"
         >
           <CopyPlus className="mr-2" />
           {t('homeUpdateBtn')}

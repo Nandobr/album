@@ -16,7 +16,7 @@ const TRANSLATIONS = {
     homeCompleted: 'Concluído',
     homeOwned: 'Tenho',
     homeMissing: 'Faltam',
-    homeDuplicates: 'Repetidas Disponíveis',
+    homeDuplicates: 'Repetidas',
     homeReadyToTrade: 'Prontas para troca',
     homeUpdateBtn: 'Atualizar Álbum',
     onboardingTitle: 'Como você quer começar?',
