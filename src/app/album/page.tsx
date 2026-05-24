@@ -6,7 +6,7 @@ import { useLanguageStore } from '@/lib/useLanguageStore';
 import { useMounted } from '@/lib/useMounted';
 import { TEAMS, GROUPS } from '@/lib/albumData';
 import { StickerBadge } from '@/components/StickerBadge';
-import { X, Minus, Plus } from 'lucide-react';
+import { X, Minus, Plus, Search } from 'lucide-react';
 
 export default function AlbumGrid() {
   const { stickers, isInitialized, updateStickers } = useAlbumStore();
@@ -15,11 +15,17 @@ export default function AlbumGrid() {
   const [selectedGroup, setSelectedGroup] = useState<string>('Todos');
   const [selectedTeam, setSelectedTeam] = useState<string>('FWC');
   const [selectedStickerCode, setSelectedStickerCode] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const currentGroup = GROUPS.find(g => g.name === selectedGroup);
-  const visibleTeams = selectedGroup === 'Todos' 
+  let visibleTeams = selectedGroup === 'Todos' 
     ? TEAMS 
     : TEAMS.filter(t => currentGroup?.codes.includes(t.code));
+
+  if (searchQuery.trim()) {
+    const query = searchQuery.toLowerCase();
+    visibleTeams = TEAMS.filter(t => t.code.toLowerCase().startsWith(query));
+  }
 
   const translateGroup = (name: string) => {
     if (lang === 'en') {
@@ -52,8 +58,41 @@ export default function AlbumGrid() {
         <h2 className="text-2xl font-bold text-gray-800">{t('albumTitle')}</h2>
       </div>
 
+      {/* Search Bar */}
+      <div className="px-1 -mt-2">
+        <div className="relative">
+          <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400" size={16} />
+          <input 
+            type="text" 
+            maxLength={3}
+            placeholder={lang === 'en' ? 'Search by code (e.g. BRA)...' : 'Buscar por sigla (ex: BRA)...'}
+            value={searchQuery}
+            onChange={(e) => {
+              const val = e.target.value.toUpperCase();
+              setSearchQuery(val);
+              const query = val.toLowerCase();
+              if (query.trim()) {
+                const matches = TEAMS.filter(t => t.code.toLowerCase().startsWith(query));
+                if (matches.length > 0 && !matches.some(t => t.code === selectedTeam)) {
+                  setSelectedTeam(matches[0].code);
+                }
+              }
+            }}
+            className="w-full bg-gray-100/80 border border-gray-200 rounded-lg pl-9 pr-8 py-1.5 text-sm uppercase text-black focus:ring-2 focus:ring-wc-blue focus:border-wc-blue outline-none transition-all placeholder-gray-400 placeholder:normal-case font-bold"
+          />
+          {searchQuery && (
+            <button 
+              onClick={() => setSearchQuery('')}
+              className="absolute right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 p-1"
+            >
+              <X size={14} />
+            </button>
+          )}
+        </div>
+      </div>
+
       {/* Group Selector */}
-      <div className="overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide flex space-x-2">
+      <div className={`overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide flex space-x-2 transition-all ${searchQuery ? 'hidden' : 'block'}`}>
         <button
           onClick={() => {
             setSelectedGroup('Todos');
