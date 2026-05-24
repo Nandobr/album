@@ -8,28 +8,31 @@ interface StickerBadgeProps {
 }
 
 export function StickerBadge({ sticker, code, onClick }: StickerBadgeProps) {
-  const isMissing = !sticker || sticker.quantity === 0;
-  const isDuplicate = sticker && sticker.quantity > 1;
-  const [team, num] = code.split(' ');
+  const isOwned = sticker?.quantity && sticker.quantity > 0;
+  const isDuplicate = sticker?.quantity && sticker.quantity > 1;
+  const number = code.split(' ')[1];
+  const team = code.split(' ')[0];
 
   return (
-    <div 
+    <button 
       onClick={onClick}
-      className={`
-        relative flex flex-col items-center justify-center p-2 rounded shadow-sm border
-        aspect-[3/4] font-bold text-center select-none cursor-pointer active:scale-95
-        transition-all duration-200
-        ${isMissing ? 'bg-gray-100 border-gray-200 text-gray-400 hover:bg-gray-200' : 'bg-gradient-to-br from-wc-blue to-wc-blue/80 border-wc-blue text-white hover:opacity-90'}
+      className={`relative aspect-[3/4] rounded-lg flex flex-col items-center justify-center border-2 transition-all active:scale-95
+        ${isDuplicate 
+          ? 'bg-gradient-to-br from-yellow-300 to-yellow-500 border-yellow-600 text-yellow-900 shadow-md shadow-yellow-200/50' 
+          : isOwned 
+            ? 'bg-wc-blue text-white border-blue-600' 
+            : 'bg-gray-100 text-gray-400 border-gray-200 hover:bg-gray-200'
+        }
       `}
     >
-      <div className="text-[10px] uppercase opacity-80">{team}</div>
-      <div className="text-lg">{num}</div>
-      
+      <span className="text-xs font-bold opacity-80">{team}</span>
+      <span className={`text-xl font-black ${isDuplicate ? 'text-yellow-950' : ''}`}>{number}</span>
+
       {isDuplicate && (
-        <div className="absolute -top-2 -right-2 bg-wc-orange text-white text-[10px] w-5 h-5 rounded-full flex items-center justify-center font-black shadow-md border-2 border-white z-10">
-          +{sticker.quantity - 1}
+        <div className="absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-black w-5 h-5 rounded-full flex items-center justify-center shadow-sm border border-white">
+          {sticker.quantity}
         </div>
       )}
-    </div>
+    </button>
   );
 }

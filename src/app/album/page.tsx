@@ -10,14 +10,35 @@ import { X, Minus, Plus } from 'lucide-react';
 
 export default function AlbumGrid() {
   const { stickers, isInitialized, updateStickers } = useAlbumStore();
-  const { t } = useLanguageStore();
+  const { t, lang } = useLanguageStore();
   const isLoaded = useMounted();
-  const [selectedGroup, setSelectedGroup] = useState<string>('Especiais');
+  const [selectedGroup, setSelectedGroup] = useState<string>('Todos');
   const [selectedTeam, setSelectedTeam] = useState<string>('FWC');
   const [selectedStickerCode, setSelectedStickerCode] = useState<string | null>(null);
 
   const currentGroup = GROUPS.find(g => g.name === selectedGroup);
-  const visibleTeams = TEAMS.filter(t => currentGroup?.codes.includes(t.code));
+  const visibleTeams = selectedGroup === 'Todos' 
+    ? TEAMS 
+    : TEAMS.filter(t => currentGroup?.codes.includes(t.code));
+
+  const translateGroup = (name: string) => {
+    if (lang === 'en') {
+      if (name === 'Especiais') return 'Specials';
+      if (name.startsWith('Grupo ')) return name.replace('Grupo ', 'Group ');
+    }
+    return name;
+  };
+
+  const currentTeamData = TEAMS.find(t => t.code === selectedTeam);
+  const teamTotal = currentTeamData?.count || 0;
+  
+  let teamOwned = 0;
+  for (let i = 1; i <= teamTotal; i++) {
+    if (stickers[`${selectedTeam} ${i}`]?.quantity > 0) {
+      teamOwned++;
+    }
+  }
+  const teamPercentage = teamTotal > 0 ? Math.round((teamOwned / teamTotal) * 100) : 0;
 
   const handleUpdateQuantity = (code: string, change: number) => {
     updateStickers([{ code, quantityToAdd: change }]);
@@ -33,6 +54,20 @@ export default function AlbumGrid() {
 
       {/* Group Selector */}
       <div className="overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide flex space-x-2">
+        <button
+          onClick={() => {
+            setSelectedGroup('Todos');
+            setSelectedTeam(TEAMS[0].code);
+          }}
+          className={`whitespace-nowrap px-3 py-1.5 rounded-lg font-bold text-xs uppercase tracking-wider transition-colors border
+            ${selectedGroup === 'Todos' 
+              ? 'bg-gray-800 text-white border-gray-800' 
+              : 'bg-white text-gray-500 border-gray-200 hover:bg-gray-100'
+            }
+          `}
+        >
+          {lang === 'en' ? 'ALL' : 'TODOS'}
+        </button>
         {GROUPS.map((g) => {
           const isSelected = selectedGroup === g.name;
           return (
@@ -42,14 +77,14 @@ export default function AlbumGrid() {
                 setSelectedGroup(g.name);
                 setSelectedTeam(g.codes[0]);
               }}
-              className={`whitespace-nowrap px-2.5 py-1.5 rounded-lg font-bold text-[11px] uppercase tracking-wider transition-colors border
+              className={`whitespace-nowrap px-3 py-1.5 rounded-lg font-bold text-xs uppercase tracking-wider transition-colors border
                 ${isSelected 
                   ? 'bg-gray-800 text-white border-gray-800' 
                   : 'bg-white text-gray-500 border-gray-200 hover:bg-gray-100'
                 }
               `}
             >
-              {g.name}
+              {translateGroup(g.name)}
             </button>
           );
         })}
@@ -59,27 +94,47 @@ export default function AlbumGrid() {
       <div className="overflow-x-auto pb-2 -mx-4 px-4 scrollbar-hide flex space-x-2 mt-2">
         {visibleTeams.map((team) => {
           const isSelected = selectedTeam === team.code;
+          
+          let isComplete = true;
+          for (let i = 1; i <= team.count; i++) {
+            if (!stickers[`${team.code} ${i}`] || stickers[`${team.code} ${i}`].quantity === 0) {
+              isComplete = false;
+              break;
+            }
+          }
+
           return (
             <button
               key={team.code}
               onClick={() => setSelectedTeam(team.code)}
-              className={`whitespace-nowrap px-4 py-2 rounded-full font-bold text-sm transition-colors border
-                ${isSelected 
-                  ? 'bg-wc-blue text-white border-wc-blue' 
-                  : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
+              className={`whitespace-nowrap px-4 py-1.5 rounded-xl font-bold text-sm transition-all border
+                ${isComplete 
+                  ? (isSelected ? 'bg-yellow-400 text-yellow-900 border-yellow-500 shadow-sm' : 'bg-yellow-50 text-yellow-700 border-yellow-200 hover:bg-yellow-100')
+                  : (isSelected 
+                    ? 'bg-wc-blue text-white border-wc-blue shadow-sm' 
+                    : 'bg-white text-gray-500 border-gray-200 hover:bg-gray-100')
                 }
               `}
             >
-              {team.code}
+              {team.code} {isComplete && '⭐'}
             </button>
           );
         })}
       </div>
 
       {/* Grid */}
-      <div className="flex-1 overflow-y-auto">
-        <div className="mb-4">
-          <h3 className="font-bold text-lg text-gray-700">{TEAMS.find(t => t.code === selectedTeam)?.name}</h3>
+      <div className="flex-1 overflow-y-auto pb-4">
+        <div className="mb-4 space-y-2">
+          <div className="flex items-end justify-between">
+            <h3 className="font-bold text-lg text-gray-800">{currentTeamData?.name}</h3>
+            <span className="text-sm font-bold text-gray-500">{teamOwned} / {teamTotal}</span>
+          </div>
+          <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden">
+            <div 
+              className="h-full bg-wc-blue transition-all duration-500" 
+              style={{ width: `${teamPercentage}%` }}
+            />
+          </div>
         </div>
         <div className="grid grid-cols-4 sm:grid-cols-5 gap-3">
           {Array.from({ length: TEAMS.find(t => t.code === selectedTeam)?.count || 0 }).map((_, i) => {
