@@ -5,7 +5,7 @@ type Language = 'pt' | 'en';
 
 const TRANSLATIONS = {
   pt: {
-    appTitle: 'Figurinhas 2026',
+    appTitle: 'EasyAlbum',
     navHome: 'Início',
     navAlbum: 'Álbum',
     navUpdate: 'Atualizar',
@@ -75,7 +75,7 @@ const TRANSLATIONS = {
     settingsImportError: 'Erro ao ler arquivo inválido.',
   },
   en: {
-    appTitle: 'Stickers 2026',
+    appTitle: 'EasyAlbum',
     navHome: 'Home',
     navAlbum: 'Album',
     navUpdate: 'Update',
