@@ -8,8 +8,8 @@ interface StickerBadgeProps {
 }
 
 export function StickerBadge({ sticker, code, onClick }: StickerBadgeProps) {
-  const isOwned = sticker?.quantity && sticker.quantity > 0;
-  const isDuplicate = sticker?.quantity && sticker.quantity > 1;
+  const isOwned = (sticker?.quantity ?? 0) > 0;
+  const isDuplicate = (sticker?.quantity ?? 0) > 1;
   const number = code.split(' ')[1];
   const team = code.split(' ')[0];
 
