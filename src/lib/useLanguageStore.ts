@@ -5,7 +5,7 @@ type Language = 'pt' | 'en';
 
 const TRANSLATIONS = {
   pt: {
-    appTitle: 'Álbum Fácil',
+    appTitle: 'AlbumFacil',
     navHome: 'Início',
     navAlbum: 'Álbum',
     navUpdate: 'Atualizar',
@@ -75,7 +75,7 @@ const TRANSLATIONS = {
     settingsImportError: 'Erro ao ler arquivo inválido.',
   },
   en: {
-    appTitle: 'EasyAlbum',
+    appTitle: 'AlbumFacil',
     navHome: 'Home',
     navAlbum: 'Album',
     navUpdate: 'Update',

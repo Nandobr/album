@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Álbum Fácil",
+  title: "AlbumFacil",
   description: "Gerencie seu álbum da Copa do Mundo 2026",
 };
 
